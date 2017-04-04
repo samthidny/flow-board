@@ -1,0 +1,22 @@
+{
+  "name": "flow-board",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/snapsvg": "^0.4.27",
+    "events": "^1.1.1",
+    "ts-loader": "^2.0.1",
+    "typescript": "^2.2.1",
+    "typescript.events": "^6.0.0",
+    "webpack": "^2.2.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "snapsvg": "^0.5.1"
+  }
+}

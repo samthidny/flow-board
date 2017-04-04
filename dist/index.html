@@ -1,0 +1,41 @@
+<html>
+<head>
+	<script src="snap.svg.js"></script>
+	<style type="text/css">
+		.box {float:left; width:100px; height:35px; margin:10px;padding:10px;border:1px solid #aaaaaa;}
+	
+		#boardContainer {
+			position:relative;
+			top:50;
+
+		}
+
+		#board {
+			position:absolute;
+			background-image: url('images/grid.png');
+			width:1000px;
+			height:500px;
+			border: 1px solid #333;
+		}
+
+		#svg {
+			position:absolute;
+			width:1000px;
+			height:500px;
+		}
+
+	</style>
+</head>
+<body>
+	<input type="button" id="test-button" />
+<div id="boardContainer">
+			<div id="board">
+
+			</div>
+			<svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+		</div>
+</body>
+
+<script src="bundle.js"></script>
+
+</html>
