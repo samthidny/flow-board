@@ -1,7 +1,9 @@
 import NodeComponent from './NodeComponent';
 import Point from '../model/Point';
 import Item from '../model/Item';
-export default class ItemComponent {
+import ViewEvents from './ViewEvents';
+import SimpleEventDispatcher from '../SimpleEventDispatcher';
+export default class ItemComponent extends SimpleEventDispatcher {
 
     //The SVG component
     private _view:any;
@@ -10,6 +12,7 @@ export default class ItemComponent {
     private _position:Point;
 
     constructor() {
+        super();
         this._position = new Point(0, 0);
     }
 
@@ -59,8 +62,9 @@ export default class ItemComponent {
         var stop = function() {
                 var box = this.getBBox();
                 console.log('Finished dragging ' + box);
-                component.model.layout.x = box.x;
-                component.model.layout.y = box.y;
+                // +5 is a fix for the nodes being included in the size
+                component.model.layout.x = box.x + 5;
+                component.model.layout.y = box.y + 5;
                
         }
 
@@ -75,17 +79,22 @@ export default class ItemComponent {
 	public set model(value: Item) {
 		console.log("Add Listener on Model");
         this._model = value;
-        this._model.layout.addListener("CHANGE", () => {
+        /*this._model.layout.addListener("CHANGE", () => {
             console.log("Component Heard Model Change");
             this.x = this.model.layout.x;
             this.y = this.model.layout.y;
             
-        });
+        });*/
 	}
 
 
     public addNode(node:NodeComponent):void {
         this._nodes.push(node);
+    }
+
+    //Simply bubbles a NodeComponent Event
+    nodeClickedHandler(node:NodeComponent) {
+        this.emit(ViewEvents.NODE_CLICKED.type, node);
     }
 
     updateView() {
@@ -110,6 +119,11 @@ export default class ItemComponent {
         console.log("STOP DRAG");
     }
 
+    clear() {
+        // TODO - remove listeners
+        // this._model.layout.removeAllListeners(null);
+        this.view.remove();
+    }
     
 
 }

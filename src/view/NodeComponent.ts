@@ -1,13 +1,17 @@
 import Point from '../model/Point';
 import Node from '../model/Node';
-export default class NodeComponent {
+import ViewEvents from './ViewEvents';
+import FlowBoard from '../FlowBoard';
+import SimpleEventDispatcher from '../SimpleEventDispatcher';
+
+export default class NodeComponent extends SimpleEventDispatcher {
 
     //The SVG shape
     private _view:any;
     model:Node;
 
     constructor() {
-       
+        super();
     }
 
     set x(value:number){
@@ -36,7 +40,11 @@ export default class NodeComponent {
 		this._view = value;
 
         //Set up listeners for drag drop etc
-        this._view.drag();
+        //this._view.drag();
+        this._view.click((event:MouseEvent) => { 
+            console.log("NodeComponent - Clicked a node " + event.target);
+            this.emit(ViewEvents.NODE_CLICKED.type, this);
+        });
 
 	}
 

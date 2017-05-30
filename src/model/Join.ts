@@ -5,19 +5,32 @@ import Node from './Node';
  */
 export default class Join {
 
-    node1:Node;
-    node2:Node;
+    id: string;
+    node1: Node;
+    node2: Node;
+    joinType: JoinType;
 
-    constructor(node1:Node, node2:Node, joinType:JoinType) {
-        
+    constructor(node1: Node, node2: Node, joinType: JoinType) {
+
         this.node1 = node1;
         this.node2 = node2;
 
         this.node1.join = this;
         this.node2.join = this;
 
-        console.log("Joined nodes");
-        
+        this.joinType = joinType;
+
+        this.id = this.generateID();
+
+    }
+
+    toJSON() {
+        var obj = { type: "Join", fromItem: this.node1.parent.id, fromNode: this.node1.id, toItem: this.node2.parent.id, toNode: this.node2.id, joinType: this.joinType };
+        return JSON.stringify(obj);
+    }
+
+    generateID(): string {
+        return this.node1.parent.id + "-" + this.node1.id + "-" + this.node2.parent.id + "-" + this.node2.id;
     }
 
 }

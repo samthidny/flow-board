@@ -5,6 +5,7 @@ import NodeTemplate from '../model/NodeTemplate';
 import NodeComponent from './NodeComponent';
 import NodeComponentFactory from './NodeComponentFactory';
 import Point from '../model/Point';
+import ViewEvents from './ViewEvents';
 
 export default class ShapeFactory {
 
@@ -21,6 +22,7 @@ export default class ShapeFactory {
             //Create a NodeComponent Button and position it within the group
             var nodeComponentFactory: NodeComponentFactory = new NodeComponentFactory();
             var nodeComponent: NodeComponent = nodeComponentFactory.create();
+            nodeComponent.addListener(ViewEvents.NODE_CLICKED.type, (function(nodeComponent:NodeComponent) { component.nodeClickedHandler(nodeComponent) }).bind(component));
             nodeComponent.view = component.view.rect(-5, -5, 10, 10);
             //Bind the node to the Node model
             nodeComponent.model = item.getNodeAt(index);
@@ -52,7 +54,7 @@ export default class ShapeFactory {
         var s = Snap("#svg");
         var shape = s.polyline(this.flattenPoints(shapeTemplate.points, shapeTemplate.width, shapeTemplate.height));
         var group = s.group(shape);
-        shape.attr({ id: "shape", fill: '#FF0000' });
+        shape.attr({ id: "shape", fill: '#FF0000', fillOpacity: "0.4" });
         return group;
     }
 

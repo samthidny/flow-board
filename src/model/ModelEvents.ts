@@ -1,5 +1,4 @@
 /**
- * Constants for Join Types - Can be LEFT, RIGHT or BOTH.
  */
 export default class ModelEvents {
 

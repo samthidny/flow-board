@@ -1,15 +1,15 @@
 import Item from './Item';
 import Join from './Join';
-import {Event} from 'typescript.events';
 import ModelEvents from './ModelEvents';
 import LayoutData from './LayoutData';
+import SimpleEventDispatcher from '../SimpleEventDispatcher';
 
 /**
  * An instance of a Node in the diagram that can be joined to other Nodes via a Join
  */
-export default class Node extends Event {
+export default class Node extends SimpleEventDispatcher {
 
-    id:String;
+    id:string;
     type:String;
     private _join:Join;
     parent:Item;

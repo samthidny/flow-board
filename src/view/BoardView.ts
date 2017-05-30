@@ -14,4 +14,9 @@ export default class BoardView {
         //Adds the group to the SVG canvas
     }
 
+    clear() {
+        var s = Snap("#svg");
+        s.clear();
+    }
+
 }

@@ -1,10 +1,11 @@
-import { Event } from 'typescript.events';
 import Join from '../model/Join';
+import SimpleEventDispatcher from '../SimpleEventDispatcher';
 
-export default class JoinComponent extends Event {
+export default class JoinComponent extends SimpleEventDispatcher {
 
     private _model:Join;
     private _view:any;
+    id:string;
 
     constructor() {
         super();
@@ -24,7 +25,7 @@ export default class JoinComponent extends Event {
         var x2:number = this._model.node2.parent.layout.x + this._model.node2.layout.x;
         var y2:number = this._model.node2.parent.layout.y + this._model.node2.layout.y;
         
-        //var line = s.line(this._model.node1.parent.layout.x, this._model.node1.parent.layout.y, this._model.node2.parent.layout.x, this._model.node2.parent.layout.y);
+        var line = s.line(this._model.node1.parent.layout.x, this._model.node1.parent.layout.y, this._model.node2.parent.layout.x, this._model.node2.parent.layout.y);
         var line = s.line(x1, y1, x2, y2);
         var group = s.group(line);
 
@@ -48,7 +49,8 @@ export default class JoinComponent extends Event {
 	}
 
 	public set model(value: Join) {
-		this._model = value;
+		this.id = value.id;
+        this._model = value;
         this.view = this.drawLine();
         this._model.node1.parent.layout.addListener("CHANGE", () => { this.layoutChangeHandler() });
         this._model.node2.parent.layout.addListener("CHANGE", () => { this.layoutChangeHandler() });
@@ -62,5 +64,10 @@ export default class JoinComponent extends Event {
 	public set view(value: any) {
 		this._view = value;
 	}
+
+    clear() {
+        //TODO - remove event listeners
+        this._view.remove();
+    }
 
 }

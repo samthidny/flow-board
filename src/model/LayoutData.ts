@@ -1,5 +1,6 @@
-import { Event } from 'typescript.events';
-export default class LayoutData extends Event {
+import SimpleEventDispatcher from '../SimpleEventDispatcher';
+
+export default class LayoutData extends SimpleEventDispatcher {
 
     private _x:number;
     private _y:number;
